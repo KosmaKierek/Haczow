@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haczów - biblioteka</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      body {
+        overflow-y: hidden;
+	      margin: 0; 
+	      height: 100%; 
+      }
+    </style>
+</head>
+<body>
+   <div class="topnav">
+   <a href="main.html">STRONA GŁÓWNA</a>
+   <a href="../zwyklyPath.html">KOŚCIÓŁ – ŚCIEŻKA</a>
+   <a href="../oponaPath.html">OPONA – ŚCIEŻKA</a>
+   <a href="../grobPath.html">GRÓB – ŚCIEŻKA</a>
+   <a href="../cmentarzPath.html">CMENTARZ – ŚCIEŻKA</a>
+   <a href="zdjecia.html">MATERIAŁY DODATKOWE</a>
+   <a href="draw.html" class="active">RYSUJ WZORY</a>
+   </div> 
+   </div>
+<div class="cent">
+  <fieldset id="incav">
+    <!-- <div class="field">
+       <img id="randomImage" width="400" /> -->
+      <!-- <img src="photos/haft.jpg"> -->
+  <!-- <script>
+    // List your images here
+    const images = [
+      "photos/haft.jpg",
+      "photos/haft.jpg",
+      "photos/haft.jpg"
+    ];
+
+    // Pick random image
+    const randomIndex = Math.floor(Math.random() * images.length);
+    const selectedImage = images[randomIndex];
+
+    // Display image
+    document.getElementById("randomImage").src = selectedImage;
+  </script> -->
+
+  
+       <canvas id="canvas"></canvas>
+       <script>
+        const canvas=document.getElementById("canvas");
+        canvas.width=window.innerWidth-115;
+        canvas.height=570;
+
+        let context=canvas.getContext("2d");
+        context.fillStyle="white";
+        context.fillRect(0,0,canvas.width,canvas.height);
+        const ctx = canvas.getContext("2d");
+
+        const bgImage = new Image();
+
+        const images = [
+        "photos/haft1.jpg",
+        "photos/haft5.jpg",
+        "photos/haft6.jpg",
+        "photos/haft7.jpg",
+        "photos/haft8.jpg",
+        "photos/haft10.jpg",
+        "photos/haft11.jpg",
+        "photos/haft12.jpg",
+        "photos/haft13.jpg",
+        "photos/haft14.jpg",
+        "photos/haft15.jpg",
+        "photos/haft16.jpg",
+        "photos/haft17.jpg"
+        ];
+
+        // Pick random image
+        const randomIndex = Math.floor(Math.random() * images.length);
+        const selectedImage = images[randomIndex];
+        bgImage.src=selectedImage;
+        bgImage.onload = function () {
+        // Draw image once (not repeating)
+        ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+      };
+
+        let is_drawing=false;
+        let draw_color="green";
+        let draw_width="2";
+
+        canvas.addEventListener("touchstart", start, false);
+        canvas.addEventListener("touchmove", draw, false);
+        canvas.addEventListener("mousedown", start, false);
+        canvas.addEventListener("mousemove", draw, false);
+
+        canvas.addEventListener("touchend", stop, false);
+        canvas.addEventListener("mouseup", stop, false);
+        canvas.addEventListener("mouseout", stop, false);
+
+        function start(event){
+          is_drawing=true;
+          context.beginPath();
+          context.moveTo(event.clientX - canvas.offsetLeft,event.clientY - canvas.offsetTop);
+          event.preventDefault();
+        }
+        
+        function draw(event){
+          if (is_drawing){
+            context.lineTo(event.clientX - canvas.offsetLeft,event.clientY - canvas.offsetTop);
+            context.strokeStyle=draw_color;
+            context.lineWidth=draw_width;
+            context.linecap="round";
+            context.lineJoin="round";
+            context.stroke();
+          }
+          event.preventDefault();
+        }
+
+        function stop(event){
+          if (is_drawing){
+            context.stroke();
+            context.closePath();
+            is_drawing=false;
+          }
+          event.preventDefault();
+        }
+
+        function change_color(element){
+          draw_color=element.style.background;
+        }
+
+        function clear_canvas(){
+          context.fillStyle="white";
+          context.clearRect(0,0,canvas.width,canvas.height);
+          context.fillRect(0,0,canvas.width,canvas.height);
+          ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+        }
+
+
+        /*let myDate = new Date();
+        let myDay = myDate.getDay();
+        let hours = myDate.getHours();
+        let minutes = myDate.getMinutes();
+        let myTime = hours + " " + ampm + " : " + minutes +
+            " : " + myDate.getMilliseconds(); + ".jpg"*/
+       </script>
+
+       <div class="tools">
+          <button onClick="clear_canvas()" type="button" class="button">wyczyść</button>
+          
+          <div onClick="change_color(this)" class="color-field" style="background: red;"></div>
+          <div onClick="change_color(this)" class="color-field" style="background: green;"></div>
+          <div onClick="change_color(this)" class="color-field" style="background: blue;"></div>
+          
+          <input onInput="draw_color=this.value" type="color" class="color-picker">
+          <input onInput="draw_width=this.value" type="range" min="1" max="100" class="pen-range">
+          <button style="align-self:left;" type="button" class="button" onClick="window.location.reload();">wczytaj haft</button>
+          <button id="pobierz" type="button" class="button">pobierz</button>
+          <script>
+            const bpobierz=document.querySelector('#pobierz');
+            bpobierz.addEventListener("click", function(){
+              //const dataURI=canvas.toDataURL("image/jpeg");
+              //imgConvertedsrc=dataURI;
+              if (window.navigator.msSaveBlob){
+                window.navigator.msSaveBlob(canvas.msToBlob(), "haft.png");
+              }
+              else{
+                const a=document.createElement("a");
+
+                document.body.appendChild(a);
+                a.href=canvas.toDataURL("image/jpeg");
+                a.download="haft.jpg";
+                a.click();
+                document.body.removeChild(a);
+              }
+            });
+          </script>
+        </div>
+  </fieldset>
+  <br>
+</div>
+<br>
+</body>
+</html>
