@@ -104,6 +104,13 @@
         function draw(event){
           if (is_drawing){
             context.lineTo(event.clientX - canvas.offsetLeft,event.clientY - canvas.offsetTop);
+            
+            context.strokeStyle="rgb(240,240,240)";
+            context.lineWidth=1+draw_width;
+            context.linecap="round";
+            context.lineJoin="round";
+            context.stroke();
+            
             context.strokeStyle=draw_color;
             context.lineWidth=draw_width;
             context.linecap="round";
@@ -146,11 +153,11 @@
           <button onClick="clear_canvas()" type="button" class="button">wyczyść</button>
           
           <div onClick="change_color(this)" class="color-field" style="background: rgb(247, 243, 14);"></div>
-          <div onClick="change_color(this)" class="color-field" style="background: rgb(173, 172, 172);"></div>
-          <div onClick="change_color(this)" class="color-field" style="background: white;"></div>
+          <div onClick="change_color(this)" class="color-field" style="background: rgb(191, 191, 191);"></div>
+          <div onClick="change_color(this)" class="color-field" style="background: rgb(233, 232, 232);"></div>
           
           <input onInput="draw_color=this.value" type="color" class="color-picker">
-          <input onInput="draw_width=this.value" type="range" min="1" max="100" class="pen-range">
+          <input onInput="draw_width=this.value" type="range" min="1" max="10" value="2" class="pen-range">
           <button style="align-self:left;" type="button" class="button" onClick="window.location.reload();">wczytaj haft</button>
           <button id="pobierz" type="button" class="button">pobierz</button>
           <script>
