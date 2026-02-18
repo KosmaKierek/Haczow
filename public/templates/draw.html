@@ -23,7 +23,6 @@
    <a href="zdjecia.html">MATERIAŁY DODATKOWE</a>
    <a href="draw.html" class="active">RYSUJ WZORY</a>
    </div> 
-   </div>
 <div class="cent">
   <fieldset id="incav">
     <!-- <div class="field">
@@ -83,7 +82,7 @@
       };
 
         let is_drawing=false;
-        let draw_color="green";
+        let draw_color="white";
         let draw_width="2";
 
         canvas.addEventListener("touchstart", start, false);
@@ -146,9 +145,9 @@
        <div class="tools">
           <button onClick="clear_canvas()" type="button" class="button">wyczyść</button>
           
-          <div onClick="change_color(this)" class="color-field" style="background: red;"></div>
-          <div onClick="change_color(this)" class="color-field" style="background: green;"></div>
-          <div onClick="change_color(this)" class="color-field" style="background: blue;"></div>
+          <div onClick="change_color(this)" class="color-field" style="background: rgb(247, 243, 14);"></div>
+          <div onClick="change_color(this)" class="color-field" style="background: rgb(97, 196, 97);"></div>
+          <div onClick="change_color(this)" class="color-field" style="background: white;"></div>
           
           <input onInput="draw_color=this.value" type="color" class="color-picker">
           <input onInput="draw_width=this.value" type="range" min="1" max="100" class="pen-range">
