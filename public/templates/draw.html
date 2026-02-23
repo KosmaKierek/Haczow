@@ -23,26 +23,6 @@
    </div> 
 <div class="cent">
   <fieldset id="incav">
-    <!-- <div class="field">
-       <img id="randomImage" width="400" /> -->
-      <!-- <img src="photos/haft.jpg"> -->
-  <!-- <script>
-    // List your images here
-    const images = [
-      "photos/haft.jpg",
-      "photos/haft.jpg",
-      "photos/haft.jpg"
-    ];
-
-    // Pick random image
-    const randomIndex = Math.floor(Math.random() * images.length);
-    const selectedImage = images[randomIndex];
-
-    // Display image
-    document.getElementById("randomImage").src = selectedImage;
-  </script> -->
-
-  
        <canvas id="canvas"></canvas>
        <script>
         const canvas=document.getElementById("canvas");
@@ -50,10 +30,10 @@
         //canvas.height=570;
         canvas.height=window.innerHeight-150;
 
-        let context=canvas.getContext("2d");
-        context.fillStyle="white";
-        context.fillRect(0,0,canvas.width,canvas.height);
-        const ctx = canvas.getContext("2d");
+        const ctx=canvas.getContext("2d");
+        ctx.fillStyle="white";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        const context = canvas.getContext("2d");
 
         const bgImage = new Image();
 
@@ -83,13 +63,139 @@
         bgImage.src=selectedImage;
         bgImage.onload = function () {
         // Draw image once (not repeating)
-        ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+        context.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
       };
 
-        let is_drawing=false;
-        let draw_color="white";
-        let draw_width="2";
+      //metoda na obsluge dotykiem canvas
 
+        let is_drawing=false;
+        //let draw_color="white";
+        //let draw_width="2";
+        let x = 0;
+        let y = 0;
+        var offsetX;
+        var offsetY;
+
+
+        function startup() {
+            canvas.addEventListener('touchstart', handleStart);
+            canvas.addEventListener('touchend', handleEnd);
+            canvas.addEventListener('touchcancel', handleCancel);
+            canvas.addEventListener('touchmove', handleMove);
+            canvas.addEventListener('mousedown',(e)=>{
+              x = e.offsetX;
+              y = e.offsetY;
+              isDrawing = true;});
+
+            canvas.addEventListener('mousemove',(e)=>{
+              if (isDrawing) {
+                drawLine(context,x,y,e.offsetX,e.offsetY);
+                x = e.offsetX;
+                y = e.offsetY;}});
+
+            canvas.addEventListener('mouseup',(e)=>{
+              if (isDrawing) {
+                drawLine(context,x,y,e.offsetX,e.offsetY);
+                x = 0;
+                y = 0;
+                isDrawing = false;}});
+          }
+
+          document.addEventListener("DOMContentLoaded", startup);
+
+          const ongoingTouches = [];
+
+          function handleStart(evt){
+            evt.preventDefault();
+            const touches=evt.changedTouches;
+            offsetX=canvas.getBoundingClientRect().left;
+            offsetY=canvas.getBoundingClientRect().top;
+            for (let i=0; i<touches.length; i++) {
+              ongoingTouches.push(copyTouch(touches[i]));
+            }
+          }
+
+          function handleMove(evt){
+            evt.preventDefault();
+            const touches=evt.changedTouches;
+            for (let i=0; i<touches.length; i++){
+              const draw_color=document.getElementById('col1').value;
+              //const draw_color=green;
+              const idx=ongoingTouchIndexById(touches[i].identifier);
+              if (idx>=0){
+                context.beginPath();
+                context.moveTo(ongoingTouches[idx].clientX - offsetX, ongoingTouches[idx].clientY - offsetY);
+                context.lineTo(touches[i].clientX - offsetX, touches[i].clientY - offsetY);
+                context.lineWidth=document.getElementById('wid1').value;
+                context.strokeStyle=draw_color;
+                context.lineJoin="round";
+                context.closePath();
+                context.stroke();
+                ongoingTouches.splice(idx, 1, copyTouch(touches[i]));
+              }
+            }
+          }
+
+          function handleEnd(evt){
+            evt.preventDefault();
+            const touches=evt.changedTouches;
+            for (let i=0; i<touches.length; i++){
+              const draw_color=document.getElementById('col1').value;
+              //const draw_color=green;
+              let idx=ongoingTouchIndexById(touches[i].identifier);
+              if (idx>=0){
+                context.lineWidth=document.getElementById('wid1').value;
+                context.fillStyle=draw_color;
+                ongoingTouches.splice(idx, 1);
+              }
+            }
+          }
+
+          function handleCancel(evt){
+            evt.preventDefault();
+            const touches=evt.changedTouches;
+            for (let i=0; i<touches.length; i++){
+              let idx=ongoingTouchIndexById(touches[i].identifier);
+              ongoingTouches.splice(idx,1);
+            }
+          }
+
+          function copyTouch({identifier,clientX,clientY}){
+            return {identifier,clientX,clientY};
+          }
+
+          function ongoingTouchIndexById(idToFind){
+            for (let i=0; i<ongoingTouches.length; i++){
+              const id=ongoingTouches[i].identifier;
+              if (id===idToFind){
+                return i;
+              }
+            }
+            return -1;
+          }
+
+          function drawLine(context,x1,y1,x2,y2){
+            context.beginPath();
+            context.strokeStyle=document.getElementById('col1').value;
+            context.lineWidth=1;
+            context.lineJoin="round";
+            context.linecap="round";
+            context.moveTo(x1,y1);
+            context.lineTo(x2,y2);
+            context.closePath();
+            context.stroke();
+
+            context.beginPath();
+            context.strokeStyle=document.getElementById('col1').value;
+            context.lineWidth=document.getElementById('wid1').value;
+            //context.lineJoin="round";
+            //context.linecap="round";
+            context.moveTo(x1,y1);
+            context.lineTo(x2,y2);
+            //context.closePath();
+            context.stroke();
+          }
+/*
         canvas.addEventListener("touchstart", start, false);
         canvas.addEventListener("touchmove", draw, false);
         canvas.addEventListener("mousedown", start, false);
@@ -133,40 +239,32 @@
             is_drawing=false;
           }
           event.preventDefault();
-        }
-
-        function change_color(element){
-          draw_color=element.style.background;
-        }
-
-        function clear_canvas(){
-          context.fillStyle="white";
-          context.clearRect(0,0,canvas.width,canvas.height);
-          context.fillRect(0,0,canvas.width,canvas.height);
-          ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
-        }
-
-
-        /*let myDate = new Date();
-        let myDay = myDate.getDay();
-        let hours = myDate.getHours();
-        let minutes = myDate.getMinutes();
-        let myTime = hours + " " + ampm + " : " + minutes +
-            " : " + myDate.getMilliseconds(); + ".jpg"*/
+        }*/
        </script>
 
        <div class="tools">
           <button onClick="clear_canvas()" type="button" class="button">wyczyść</button>
           
-          <div onClick="change_color(this)" class="color-field" style="background: rgb(247, 243, 14);"></div>
-          <div onClick="change_color(this)" class="color-field" style="background: rgb(191, 191, 191);"></div>
-          <div onClick="change_color(this)" class="color-field" style="background: rgb(233, 232, 232);"></div>
-          
-          <input onInput="draw_color=this.value" type="color" class="color-picker">
-          <input onInput="draw_width=this.value" type="range" min="1" max="10" value="2" class="pen-range">
+          <!-- <div id="col1" onClick="change_color(this)" class="color-field" style="background: rgb(247, 243, 14);"></div>
+          <div id="col1" onClick="change_color(this)" class="color-field" style="background: rgb(191, 191, 191);"></div>
+          <div id="col1" onClick="change_color(this)" class="color-field" style="background: rgb(233, 232, 232);"></div>
+           -->
+          <input id="col1" onInput="draw_color=this.value" type="color" class="color-picker">
+
+          <input id="wid1" type="range" min="1" max="15" value="2" class="pen-range">
           <button style="align-self:left;" type="button" class="button" onClick="window.location.reload();">wczytaj haft</button>
           <button id="pobierz" type="button" class="button">pobierz</button>
           <script>
+            function change_color(element){
+              draw_color=element.style.background;
+            }
+            function clear_canvas(){
+              context.fillStyle="white";
+              context.clearRect(0,0,canvas.width,canvas.height);
+              context.fillRect(0,0,canvas.width,canvas.height);
+              ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+            }
+
             const bpobierz=document.querySelector('#pobierz');
             bpobierz.addEventListener("click", function(){
               //const dataURI=canvas.toDataURL("image/jpeg");
