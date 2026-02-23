@@ -46,8 +46,9 @@
        <canvas id="canvas"></canvas>
        <script>
         const canvas=document.getElementById("canvas");
-        canvas.width=window.innerWidth-115;
-        canvas.height=570;
+        canvas.width=window.innerWidth-250;
+        //canvas.height=570;
+        canvas.height=window.innerHeight-150;
 
         let context=canvas.getContext("2d");
         context.fillStyle="white";
@@ -58,10 +59,16 @@
 
         const images = [
         "photos/haft1.jpg",
+        "photos/haft2.jpg",
+        "photos/haft3.jpg",
+        "photos/haft4.jpg",
         "photos/haft5.jpg",
         "photos/haft6.jpg",
+        "photos/haft7.jpg",
         "photos/haft8.jpg",
+        "photos/haft9.jpg",
         "photos/haft10.jpg",
+        "photos/haft11.jpg",
         "photos/haft12.jpg",
         "photos/haft13.jpg",
         "photos/haft14.jpg",
@@ -96,13 +103,14 @@
           is_drawing=true;
           context.beginPath();
           context.moveTo(event.clientX - canvas.offsetLeft,event.clientY - canvas.offsetTop);
+          //context.moveTo(event.clientX - canvas.offsetX,event.clientY);
           event.preventDefault();
         }
         
         function draw(event){
           if (is_drawing){
             context.lineTo(event.clientX - canvas.offsetLeft,event.clientY - canvas.offsetTop);
-            
+            //context.lineTo(event.clientX - canvas.offsetX,event.clientY);
             context.strokeStyle="rgb(240,240,240)";
             context.lineWidth=1+draw_width;
             context.linecap="round";
