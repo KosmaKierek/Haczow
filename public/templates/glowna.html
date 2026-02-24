@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haczów - biblioteka</title>
+    <link rel="stylesheet" href="style2.css">
+    <style>
+    #container {
+        display: flex;
+        font-family: Trebuchet MS, sans-serif;
+    }
+
+    #container .box {
+        flex: 1;
+        border: 4px solid rgb(136, 136, 136);
+        padding: 20px;
+        min-height:200px;
+        min-width: 200px;
+        background:#ffffff;
+        margin: 30px;
+        border-radius: 10px;
+        text-align: center;
+        display: grid; 
+        align-items: end; 
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    /*.asbe{
+        display: grid; 
+        align-items: end; 
+        border: 1px solid green; 
+        height: 200px; 
+        width: 200px; 
+        padding: 10px;
+    }*/
+    </style>
+</head>
+<body>
+    <h1>ARCHIWUM CYFROWE HACZOWSKIEJ KULTURY LUDOWEJ</h1>
+     <!-- <h1>Biblioteka w Haczowie - kiosk multimedialny</h1>
+   <div class="topnav">
+   <a href="main.html">STRONA GŁÓWNA</a>
+   <a href="../zwyklyPath.html">DREWNIANY KOŚCIÓŁ</a>
+   <a href="draw.html">RYSUJ WZORY</a>
+   <a href="strojmeski.html" class="active">STRÓJ HACZOWSKI</a>
+   <a href="zdjecia.html">MATERIAŁY DODATKOWE</a>
+   </div> 
+   </div> -->
+<div class="cent">
+  <div id="content" style="text-align:center;" class="slider">
+	<div class="back">
+		<a href="./main.html">&#10094 POWRÓT</a>
+	</div>
+</div>
+<br>
+  <fieldset>
+<br>
+    <div id="container">
+        <div onClick="location.href='./draw.html';" class="box" style=" cursor: pointer; background-image:url(./icons/hafticon.jpg);">
+            <div style="background-color: rgb(234, 234, 234); padding: 10px; 
+                text-align: center; border-radius: 10px;">Poznaj wzory haftów haczowskich</div>
+        </div>
+        <div onClick="location.href='../zwyklyPath.html';" class="box" style=" cursor: pointer; background-image:url(./icons/suitsicon.jpg);">
+            <div style="background-color: rgb(234, 234, 234); padding: 10px; 
+                text-align: center; border-radius: 10px;">Odwiedź zabytkowy kościół UNESCO w Haczowie</div>
+        </div>
+        <div onClick="location.href='./strojmeski.html';" class="box" style=" cursor: pointer; background-image:url(./icons/suitsicon.jpg);">
+            <div style="background-color: rgb(234, 234, 234); padding: 10px; 
+                text-align: center; border-radius: 10px;">Zobacz jak wygląda tradycyjny strój haczowski</div>
+        </div>
+    </div>
+    <div id="container">
+        <div onClick="location.href='./draw.html';" class="box" style=" cursor: pointer;">
+            <div style="background-color: rgb(234, 234, 234); padding: 10px; 
+                text-align: center; border-radius: 10px;">Posłuchaj świadków naszej historii i kultury</div>
+        </div>
+        <div class="box">
+            <div style="background-color: rgb(234, 234, 234); padding: 10px; 
+                text-align: center; border-radius: 10px;">Z folklorem za pan brat. Nasze zespoły i obrzędy</div>
+        </div>
+        <div class="box">
+            <div style="background-color: rgb(234, 234, 234); padding: 10px; 
+                text-align: center; border-radius: 10px;">Lutnik z Haczowa. Unikatowe instrumenty Stanisława Wyżykowskiego</div>
+        </div>
+    </div>
+    <br>
+  </fieldset>
+  <br>
+</div>
+</body>
+</html>
