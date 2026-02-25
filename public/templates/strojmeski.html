@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haczów - biblioteka</title>
+    <link rel="stylesheet" href="style2.css">
+    <style>
+      .container {
+        position: relative;
+      }
+      .imageOne{
+        height: 800px;
+        width: 500px;
+      }
+      .imageTwo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 800px;
+        width: 500px;
+      }
+    </style>
+</head>
+<body>
+  <br>
+     <!-- <h1>Biblioteka w Haczowie - kiosk multimedialny</h1>
+   <div class="topnav">
+   <a href="main.html">STRONA GŁÓWNA</a>
+   <a href="../zwyklyPath.html">DREWNIANY KOŚCIÓŁ</a>
+   <a href="draw.html">RYSUJ WZORY</a>
+   <a href="strojmeski.html" class="active">STRÓJ HACZOWSKI</a>
+   <a href="zdjecia.html">MATERIAŁY DODATKOWE</a>
+   </div> 
+   </div> -->
+<div class="cent">
+  <div id="content" style="text-align:center;" class="slider">
+	<div class="back">
+		<a href="./glowna.html">&#10094 POWRÓT NA STRONĘ GŁÓWNĄ</a>
+	</div>
+</div>
+
+  <fieldset>
+  <legend><h3>Haczowski strój męski</h3></legend>
+
+  <div class="container">
+    <img src="./sprites/meski/sylwetka.png" class="imageOne">
+    <img src="./sprites/meski/spodnie.png" class="imageTwo" id="pants">
+    <img src="./sprites/meski/koszula.png" class="imageTwo" id="suit">
+    <img src="./sprites/meski/kapelusz.png" class="imageTwo" id="hat">
+    <img src="./sprites/meski/pas.png" class="imageTwo" id="belt">
+    <img src="./sprites/meski/kamizelka.png" class="imageTwo" id="vest">
+    <img src="./sprites/meski/buty.png" class="imageTwo" id="boots">
+  </div>
+  <div class="tools">
+    <button type="button" class="button" id="nexthat" onclick="nexthat()">KAPELUSZ</button>
+    <button type="button" class="button" id="nextvest" onclick="nextvest()">KAMIZELKA</button>
+    <button type="button" class="button" id="nextbelt" onclick="nextbelt()">PAS</button>
+    <button type="button" class="button" id="nextboots" onclick="nextboots()">BUTY</button>
+    <button type="button" class="button" id="nextsuit" onclick="nextsuit()">KOSZULA</button>
+    <button type="button" class="button" id="nextpants" onclick="nextpants()">SPODNIE</button>
+  </div>
+  </fieldset>
+  <br>
+  <fieldset>
+  <legend><h3>Haczowski strój damski</h3></legend>
+
+  <div class="container">
+    <img src="./sprites/damski/sylwetka.png" class="imageOne">
+    <img src="./sprites/damski/suknia.png" class="imageTwo" id="suknia">
+    <img src="./sprites/damski/buty.png" class="imageTwo" id="buty">
+    <img src="./sprites/damski/fartuch.png" class="imageTwo" id="fartuch">
+    <img src="./sprites/damski/kamizelka.png" class="imageTwo" id="kamizelka">
+    <img src="./sprites/damski/chusta.png" class="imageTwo" id="chusta">
+  </div>
+  <div class="tools">
+    <button type="button" class="button" id="nextchusta" onclick="nextchusta()">CHUSTA</button>
+    <button type="button" class="button" id="nextkamizelka" onclick="nextkamizelka()">GORSET</button>
+    <button type="button" class="button" id="nextfartuch" onclick="nextfartuch()">FARTUCH</button>
+    <button type="button" class="button" id="nextbuty" onclick="nextbuty()">BUTY</button>
+    <button type="button" class="button" id="nextsuknia" onclick="nextsuknia()">SPÓDNICA</button>
+  </div>
+  </fieldset>
+  <br>
+</div>
+<br>
+<script src="./ubieran.js"></script>
+</body>
+</html>
